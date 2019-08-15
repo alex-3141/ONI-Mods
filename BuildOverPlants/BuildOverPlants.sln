@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildOverPlants", "BuildOverPlants\BuildOverPlants.csproj", "{5882EA18-D02B-4FCA-B4A5-2D63A5CB1BBA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5882EA18-D02B-4FCA-B4A5-2D63A5CB1BBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5882EA18-D02B-4FCA-B4A5-2D63A5CB1BBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5882EA18-D02B-4FCA-B4A5-2D63A5CB1BBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5882EA18-D02B-4FCA-B4A5-2D63A5CB1BBA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
