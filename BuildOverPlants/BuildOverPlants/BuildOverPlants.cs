@@ -2,8 +2,9 @@
 using UnityEngine;
 
 /*
- * TODO: Improve compatibility with sandbox mode
- * 
+ * TODO: Improve compatibility with sandbox mode (low priority)
+ * TODO: Find a way to differentiate decorative buildings such as paintings from normal buildings.
+ *       Only option I know of at the moment is to hardcode them, which could lead to compatibility issues.
  */
 
 
@@ -50,6 +51,10 @@ namespace BuildOverPlants
 		{
 			public static void Postfix(ref Constructable __instance, ref Building ___building)
 			{
+				// Check if the building is not a background object
+				if (___building.Def.ObjectLayer != ObjectLayer.Building) {
+					return;
+				}
 				PrioritySetting masterPriority = __instance.GetComponent<Prioritizable> ().GetMasterPriority ();
 				___building.RunOnArea (delegate (int offset_cell) {
 					GameObject gameObject = Grid.Objects [offset_cell, (int)ObjectLayer.Plants];
