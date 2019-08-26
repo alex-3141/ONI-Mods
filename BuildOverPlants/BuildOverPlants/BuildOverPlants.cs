@@ -1,5 +1,6 @@
 ﻿using Harmony;
 using UnityEngine;
+using System.Collections.Generic;
 
 /*
  * TODO: Improve compatibility with sandbox mode (low priority)
@@ -43,6 +44,53 @@ namespace BuildOverPlants
 				}
 			}
 		}
+
+		// Patch RoomProber.RebuildDirtyCavities to allow plants on the plant layer to be detected by parks/nature reserves.
+		[HarmonyPatch(typeof(RoomProber))]
+		[HarmonyPatch("RebuildDirtyCavities")]
+		public static class BuildOverPlants_Patch_RoomProber_RebuildDirtyCavities
+		{
+			public static void Prefix(ICollection<int> visited_cells, KCompactedVector<CavityInfo> ___cavityInfos, HandleVector<int>.Handle[] ___CellCavityID){
+				int maxRoomSize = TuningData<RoomProber.Tuning>.Get ().maxRoomSize;
+				foreach (int current in visited_cells) {
+					HandleVector<int>.Handle handle = ___CellCavityID [current];
+					if (handle.IsValid ()) {
+						CavityInfo data = ___cavityInfos.GetData (handle);
+						if (0 < data.numCells && data.numCells <= maxRoomSize) {
+							GameObject gameObject = Grid.Objects [current, (int)ObjectLayer.Plants];
+							if (gameObject != null) {
+								KPrefabID component = gameObject.GetComponent<KPrefabID> ();
+								bool flag2 = false;
+								foreach (KPrefabID current2 in data.buildings) {
+									if (component.InstanceID == current2.InstanceID) {
+										flag2 = true;
+										break;
+									}
+								}
+								foreach (KPrefabID current3 in data.plants) {
+									if (component.InstanceID == current3.InstanceID) {
+										flag2 = true;
+										break;
+									}
+								}
+								if (!flag2) {
+									if (component.GetComponent<Deconstructable> ()) {
+										data.AddBuilding (component);
+									}
+									else {
+										if (component.HasTag (GameTags.Plant) && !component.HasTag ("ForestTreeBranch".ToTag ())) {
+											data.AddPlants (component);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+			
 
 		// Patch Constructable.PlaceDiggables to mark plants for uprooting when they get in the way
 		[HarmonyPatch(typeof(Constructable))]
