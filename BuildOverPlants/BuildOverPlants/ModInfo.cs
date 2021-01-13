@@ -3,6 +3,6 @@
 	public static class ModInfo
 	{
 		public static string Name = "Build Over Plants";
-		public static string Version = System.DateTime.UtcNow.ToString("yyyy.MM.dd");
+		public static string Version = "1.0.3";
 	}
 }
