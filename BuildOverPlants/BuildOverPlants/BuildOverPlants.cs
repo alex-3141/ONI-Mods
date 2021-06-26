@@ -1,4 +1,4 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace BuildOverPlants
 {
-	public static class BuildOverPlants
+	public class BuildOverPlants : KMod.UserMod2
 	{
 		public static class BuildOverPlants_OnLoad
 		{
