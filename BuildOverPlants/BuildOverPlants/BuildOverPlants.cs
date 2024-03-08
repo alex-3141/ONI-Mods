@@ -23,36 +23,36 @@ namespace BuildOverPlants
 			}
 		}
 
-        // Patch BuildingDef.IsAreaClear to allow placement of buildings over plants
-        [HarmonyPatch]
-        public static class BuildOverPlants_Patch_BuildingDef_IsAreaClear
-        {
-            // Find target method at runtime due to new overload of IsAreaClear() being introduced in hotfix 597172
-            static MethodBase TargetMethod()
-            {
-                var targetType = typeof(BuildingDef);
-                var parameterTypesOld = new Type[]
-                {
-                    typeof(GameObject), typeof(int), typeof(Orientation),
-                    typeof(ObjectLayer), typeof(ObjectLayer),
-                    typeof(bool), typeof(string).MakeByRefType()
-                };
-                var parameterTypesNew = new Type[]
-                {
-					typeof(GameObject), typeof(int), typeof(Orientation),
-					typeof(ObjectLayer), typeof(ObjectLayer), typeof(bool),
-                    typeof(bool), typeof(string).MakeByRefType()
-                };
-				// Maintain backwards compatability with older game versions
-                var targetMethod = AccessTools.Method(targetType, "IsAreaClear", parameterTypesNew);
-				if (targetMethod == null) {
-					targetMethod = AccessTools.Method(targetType, "IsAreaClear", parameterTypesOld);
-                }
-                return targetMethod;
-            }
+			// Patch BuildingDef.IsAreaClear to allow placement of buildings over plants
+			[HarmonyPatch]
+			public static class BuildOverPlants_Patch_BuildingDef_IsAreaClear
+			{
+				// Find target method at runtime due to new overload of IsAreaClear() being introduced in hotfix 597172
+				static MethodBase TargetMethod()
+				{
+					var targetType = typeof(BuildingDef);
+					var parameterTypesOld = new Type[]
+					{
+						typeof(GameObject), typeof(int), typeof(Orientation),
+						typeof(ObjectLayer), typeof(ObjectLayer),
+						typeof(bool), typeof(string).MakeByRefType()
+					};
+					var parameterTypesNew = new Type[]
+					{
+						typeof(GameObject), typeof(int), typeof(Orientation),
+						typeof(ObjectLayer), typeof(ObjectLayer), typeof(bool),
+						typeof(bool), typeof(string).MakeByRefType()
+					};
+					// Maintain backwards compatability with older game versions
+					var targetMethod = AccessTools.Method(targetType, "IsAreaClear", parameterTypesNew);
+					if (targetMethod == null) {
+							targetMethod = AccessTools.Method(targetType, "IsAreaClear", parameterTypesOld);
+					}
+					return targetMethod;
+				}
 
-            public static void Prefix(ref BuildingDef __instance, ref int cell, ref Orientation orientation, ref ObjectLayer layer)
-            {
+				public static void Prefix(ref BuildingDef __instance, ref int cell, ref Orientation orientation, ref ObjectLayer layer)
+				{
 				for (int i = 0; i < __instance.PlacementOffsets.Length; i++) {
 					CellOffset offset = __instance.PlacementOffsets [i];
 					CellOffset rotatedCellOffset = Rotatable.GetRotatedCellOffset (offset, orientation);
