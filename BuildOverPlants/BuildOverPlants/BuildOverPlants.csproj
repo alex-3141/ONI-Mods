@@ -29,21 +29,22 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony, Version=2.3.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\0Harmony.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\ONI-Bin\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>..\..\..\ONI-Bin\Assembly-CSharp-firstpass.dll</HintPath>
+      <HintPath>..\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\..\ONI-Bin\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\ONI-Bin\UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="0Harmony">
-      <HintPath>..\..\..\ONI-Bin\0Harmony.dll</HintPath>
+      <HintPath>..\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
